@@ -38,11 +38,19 @@ const createTaskItem = (taskText, completed = false) => {
   return taskItem;
 };
 
+taskInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") addTaskBtn.click();
+});
+
 const handleEdit = (taskItem, taskContent) => {
   const input = createElement("input", "task-edit-input");
   input.type = "text";
   input.value = taskContent.textContent;
   taskItem.replaceChild(input, taskContent);
+  taskInput.focus();
+
+  const editBtn = taskItem.querySelector(".task-edit-btn");
+  editBtn.style.display = "none";
 
   const saveBtn = createElement("button", "task-save-btn", "Zapisz");
   saveBtn.addEventListener("click", () => {
@@ -50,6 +58,7 @@ const handleEdit = (taskItem, taskContent) => {
     taskItem.replaceChild(taskContent, input);
     taskItem.removeChild(saveBtn);
     saveTasks();
+    editBtn.style.display = "";
   });
   taskItem.appendChild(saveBtn);
 };
