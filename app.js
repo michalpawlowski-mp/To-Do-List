@@ -19,20 +19,21 @@ const createTaskItem = (taskText, completed = false) => {
     taskItem.classList.toggle("completed");
     saveTasks();
   });
-  taskItem.appendChild(checkbox);
 
   const taskContent = createElement("span", "task-content", taskText);
-  taskItem.appendChild(taskContent);
 
   const editBtn = createElement("button", "task-edit-btn", "Edytuj");
   editBtn.addEventListener("click", () => handleEdit(taskItem, taskContent));
-  taskItem.appendChild(editBtn);
 
   const deleteBtn = createElement("button", "task-delete-btn", "Usuń");
   deleteBtn.addEventListener("click", () => {
     taskList.removeChild(taskItem);
     saveTasks();
   });
+
+  taskItem.appendChild(checkbox);
+  taskItem.appendChild(taskContent);
+  taskItem.appendChild(editBtn);
   taskItem.appendChild(deleteBtn);
 
   return taskItem;
@@ -47,20 +48,36 @@ const handleEdit = (taskItem, taskContent) => {
   input.type = "text";
   input.value = taskContent.textContent;
   taskItem.replaceChild(input, taskContent);
-  taskInput.focus();
+  input.focus();
+  input.select();
 
+  const deleteBtn = taskItem.querySelector(".task-delete-btn");
   const editBtn = taskItem.querySelector(".task-edit-btn");
   editBtn.style.display = "none";
 
   const saveBtn = createElement("button", "task-save-btn", "Zapisz");
-  saveBtn.addEventListener("click", () => {
+
+  const save = () => {
     taskContent.textContent = input.value.trim() || taskContent.textContent;
     taskItem.replaceChild(taskContent, input);
     taskItem.removeChild(saveBtn);
-    saveTasks();
     editBtn.style.display = "";
+    saveTasks();
+  };
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") save();
+    if (e.key === "Escape") {
+      taskItem.replaceChild(taskContent, input);
+      taskItem.removeChild(saveBtn);
+      editBtn.style.display = "";
+    }
   });
+
+  saveBtn.addEventListener("click", save);
+
   taskItem.appendChild(saveBtn);
+  taskItem.appendChild(deleteBtn);
 };
 
 const saveTasks = () => {
