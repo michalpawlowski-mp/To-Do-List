@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap");
 
 :root {
+  color-scheme: light dark;
+
   --bg: #f5f0e8;
   --surface: #fffdf9;
   --ink: #1a1208;
@@ -11,6 +13,20 @@
   --shadow: rgba(26, 18, 8, 0.08);
   --completed: #9a9080;
   --radius: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1812;
+    --surface: #28231b;
+    --ink: #f5eede;
+    --ink-muted: #b8a88f;
+    --accent: #e36a4f;
+    --accent-light: #3f2a23;
+    --border: #3f3427;
+    --shadow: rgba(0, 0, 0, 0.35);
+    --completed: #8c7d68;
+  }
 }
 
 *,
@@ -24,8 +40,8 @@
 body {
   background-color: var(--bg);
   background-image:
-    radial-gradient(ellipse at 20% 80%, rgba(200, 68, 42, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 10%, rgba(200, 68, 42, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 80%, rgba(227, 106, 79, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 10%, rgba(227, 106, 79, 0.06) 0%, transparent 50%);
   min-height: 100vh;
   font-family: "DM Sans", sans-serif;
   color: var(--ink);
@@ -114,18 +130,18 @@ h1::after {
     background 0.2s,
     transform 0.1s,
     box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(200, 68, 42, 0.22);
+  box-shadow: 0 2px 8px rgba(227, 106, 79, 0.25);
   white-space: nowrap;
 }
 
 #addTaskBtn:hover {
-  background: #a83520;
-  box-shadow: 0 4px 14px rgba(200, 68, 42, 0.32);
+  background: #d15a3f;
+  box-shadow: 0 4px 14px rgba(227, 106, 79, 0.35);
 }
 
 #addTaskBtn:active {
   transform: translateY(1px);
-  box-shadow: 0 1px 4px rgba(200, 68, 42, 0.18);
+  box-shadow: 0 1px 4px rgba(227, 106, 79, 0.2);
 }
 
 #taskList {
@@ -166,7 +182,7 @@ h1::after {
 
 .task:hover {
   box-shadow: 0 4px 16px var(--shadow);
-  border-color: #c8bfaa;
+  border-color: #c8b89a;
 }
 
 .task:hover::before {
@@ -294,8 +310,8 @@ h1::after {
 }
 
 .task-save-btn:hover {
-  background: #a83520;
-  border-color: #a83520;
+  background: #d15a3f;
+  border-color: #d15a3f;
 }
 
 @keyframes fadeUp {
